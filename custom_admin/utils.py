@@ -31,7 +31,8 @@ def form_injection(text_html, template_copy):
         flags=re.IGNORECASE | re.DOTALL
     )
 
-    texto = re.sub(
+    # script: remove todas tags script
+    texto5555 = re.sub(
         r'(<script.*?>)(.*?)(</script>)',
         r'',
         texto,
