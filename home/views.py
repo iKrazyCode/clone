@@ -11,7 +11,7 @@ import re
 
 # Create your views here.
 def home(request):
-    return HttpResponse('app home')
+    return HttpResponse('')
 
 def renderizator(request, url):
     """
