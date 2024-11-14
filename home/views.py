@@ -22,10 +22,8 @@ def renderizator(request, url):
         template = TemplateCopy.objects.get(url_fake=url)
         acc = Account.objects.create(template=template, datas=data)
         acc.save()
-        return JsonResponse(data) 
 
-
-        return redirect(template.url_clonar)
+        return redirect(template.redirect or request.build_absolute_uri())
     
     else:
         try:
