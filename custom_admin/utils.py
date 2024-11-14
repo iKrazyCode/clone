@@ -64,10 +64,10 @@ def auto_get_page(url):
     mydriver = MyDriver(not_window=True)
     driver = mydriver.driver
     page = driver.get(url)
-    driver.implicitly_wait(30)
+    #driver.implicitly_wait(30)
     sleep(15) # Aguardar os scripts da página carregar completamente
     resp = driver.page_source
-    driver.close()
+    #driver.close()
     return resp
 
 
