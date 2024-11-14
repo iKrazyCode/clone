@@ -61,11 +61,14 @@ def auto_get_page(url):
     Responsável por pegar a página, mesmo após um préload, usando SELENIUM
     url: Página que vai ser baixada
     """ 
-    mydriver = MyDriver(not_window=True)
+    mydriver = MyDriver(not_window=False)
     driver = mydriver.driver
     page = driver.get(url)
-    driver.implicitly_wait(20)
-    return driver.page_source
+    driver.implicitly_wait(30)
+    sleep(15) # Aguardar os scripts da página carregar completamente
+    resp = driver.page_source
+    driver.close()
+    return resp
 
 
 def form_injection(text_html, template_copy):
@@ -103,7 +106,7 @@ def form_injection(text_html, template_copy):
     )
 
     # script: remove todas tags script -DESATIVADO POR ENQUANTO
-    texto55 = re.sub(
+    texto = re.sub(
         r'(<script.*?>)(.*?)(</script>)',
         r'',
         texto,
@@ -116,6 +119,14 @@ def form_injection(text_html, template_copy):
         str(template_copy_url_trated.replace('/', '\/')) + r'\\/ajax\\/',
         texto,
         flags=re.IGNORECASE | re.DOTALL 
+    )
+
+    # input disabled: remove todos atributos de disabled dos input
+    texto = re.sub(
+        r'(<input.*?)(disabled)(.*?>)',
+        r'\1\3',
+        texto,
+        flags=re.IGNORECASE | re.DOTALL
     )
 
     # base: remove todas tags base
