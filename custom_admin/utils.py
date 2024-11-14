@@ -61,7 +61,7 @@ def auto_get_page(url):
     Responsável por pegar a página, mesmo após um préload, usando SELENIUM
     url: Página que vai ser baixada
     """ 
-    mydriver = MyDriver(not_window=False)
+    mydriver = MyDriver(not_window=True)
     driver = mydriver.driver
     page = driver.get(url)
     driver.implicitly_wait(30)
