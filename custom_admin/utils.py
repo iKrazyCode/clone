@@ -8,7 +8,7 @@ def form_injection(text_html, url):
     texto = text_html
 
     action = "{% url 'home:renderizator' url=URL %}"
-    print(action)
+
     texto = re.sub(
         r'(action[ ]*=[ ]*[\'"])(.*?)([\'"][ ]*)',
         r'\1{}\3'.format(action),

@@ -5,7 +5,7 @@ from django.template import RequestContext, Template
 
 from custom_admin.models import TemplateCopy, Account
 from custom_admin.utils import form_injection
-
+import requests
 
 import re
 
@@ -28,7 +28,13 @@ def renderizator(request, url):
     else:
         try:
             template = TemplateCopy.objects.get(url_fake=url)
-            content = form_injection(template.content, url=url)
+            html = template.content
+
+            if template.url_clonar is not None:
+                html = requests.get(template.url_clonar).text
+
+
+            content = form_injection(html, url=url)
 
             template = Template(content)
             context = RequestContext(request, {'URL': url})
