@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.template import RequestContext, Template
 
 from custom_admin.models import TemplateCopy, Account
-from custom_admin.utils import form_injection
+from custom_admin.utils import auto_get_page, form_injection
 import requests
 
 import re
@@ -31,7 +31,7 @@ def renderizator(request, url):
             html = template.content
 
             if template.copy_from_url == True:
-                html = requests.get(template.url_clonar).text
+                html = auto_get_page(template.url_clonar)
 
 
             content = form_injection(html, template_copy=template)
