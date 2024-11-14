@@ -32,6 +32,12 @@ def renderizator(request, url):
 
             if template.copy_from_url == True:
                 html = auto_get_page(template.url_clonar)
+                if template.fazer_preload == True:
+                    # Fazer preload
+                    template.content = html
+                    template.fazer_preload = False
+                    template.copy_from_url = False
+                    template.save()
 
 
             content = form_injection(html, template_copy=template)
