@@ -17,6 +17,8 @@ def renderizator(request, url):
     """
     Responsável por renderizar o site em uma url dinamica
     """
+    url = str(url)+'/' if str(url).endswith('/') is not True else url
+
     if request.method == 'POST':
         data = dict(request.POST)
         template = TemplateCopy.objects.get(url_fake=url)

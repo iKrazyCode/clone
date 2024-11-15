@@ -5,5 +5,5 @@ app_name = 'home'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('<str:url>/', views.renderizator, name='renderizator'),
+    path('<path:url>/', views.renderizator, name='renderizator'),
 ]
