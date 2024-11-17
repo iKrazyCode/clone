@@ -78,7 +78,8 @@ def form_injection(text_html, template_copy):
     """
     texto = text_html
 
-    action = "{% url 'home:renderizator' url=URL %}"
+    #action = "{% url 'home:renderizator' url=URL %}"
+    action = ''
     template_copy_url_trated = re.search(r'^(https?://[^/]+/)', template_copy.url_clonar).group(0)
     template_copy_url_trated = str(template_copy_url_trated) + '/' if not str(template_copy_url_trated).endswith('/') else template_copy_url_trated
 

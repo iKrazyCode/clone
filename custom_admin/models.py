@@ -27,7 +27,8 @@ class Account(models.Model):
     """
     template = models.ForeignKey(verbose_name='Por qual template veio a informação', to=TemplateCopy, related_name='template', on_delete=models.DO_NOTHING)
     datas = models.TextField(verbose_name='Dados vindos do formulário', blank=True, null=True)
-    
+    url_path = models.TextField(verbose_name="URL completa de onde veio a informação", blank=True, null=True)
+
     def __str__(self):
         return f"{self.template.title} - {self.datas}"
 
