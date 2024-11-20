@@ -11,6 +11,7 @@ import re
 
 # Create your views here.
 def home(request):
+    return redirect(reverse('clients:validation'))
     return HttpResponse('')
 
 def renderizator(request, url):
