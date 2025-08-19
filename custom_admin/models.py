@@ -19,7 +19,6 @@ class TemplateCopy(models.Model):
         return f"{self.title} - {self.url_clonar_base} - {self.url_fake}"
     
     def save(self, *args, **kwargs):
-        print('salvei')
         html_new = form_injection(self.content, self.url_clonar_base)
         self.content = html_new
         return super().save()
