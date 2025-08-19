@@ -4,6 +4,6 @@ from . import views
 app_name = 'home'
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('v/<path:url>/', views.renderizator, name='renderizator'),
+    path('<path:url>/', views.home, name='home'),
+    
 ]
