@@ -1,6 +1,6 @@
 import re
 from django.utils.safestring import mark_safe
-
+from urllib.parse import urlparse
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -53,9 +53,6 @@ class MyDriver:
         driver.execute_script("Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]})")
         driver.execute_script("Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']})")
 
-
-
-
 def auto_get_page(url):
     """
     Responsável por pegar a página, mesmo após um préload, usando SELENIUM
@@ -71,7 +68,13 @@ def auto_get_page(url):
     return resp
 
 
-def form_injection(text_html, template_copy):
+# apagar acima creio eu
+
+
+
+
+
+def form_injection(text_html, url_base):
     """
     PASSAR O url PELA VIEW, USANDO O CONTEXT
     Template é a instancia do TemplateCopy
@@ -80,9 +83,10 @@ def form_injection(text_html, template_copy):
 
     #action = "{% url 'home:renderizator' url=URL %}"
     action = ''
-    template_copy_url_trated = re.search(r'^(https?://[^/]+/)', template_copy.url_clonar).group(0)
-    template_copy_url_trated = str(template_copy_url_trated) + '/' if not str(template_copy_url_trated).endswith('/') else template_copy_url_trated
-
+ 
+    parsed = urlparse(url_base)
+    template_copy_url_trated = f"{parsed.scheme}://{parsed.netloc}/"
+    print(template_copy_url_trated)
 
     # Remove os action e method dos forms, para em seguida adicionar novos action e method ao form
     texto = re.sub(

